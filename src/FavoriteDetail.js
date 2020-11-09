@@ -7,6 +7,7 @@ import { fetchAdverseEvent } from "./fetchAdverseEvent";
 import { fetchDrugAndAE } from "./fetchDrugAndAE";
 import { fetchAllReports } from "./fetchAllReports";
 import moment from "moment";
+import Loading from "./Loading";
 
 export default function FavoriteDetail() {
   const { id } = useParams();
@@ -94,63 +95,67 @@ export default function FavoriteDetail() {
       <Link to={`/favorites/`} className="btn btn-link">
         My Favorites
       </Link>
-      {!isLoading && (
-        <div className="mt-3" key={id}>
-          <table className="table table-hover">
-            <thead>
-              <tr className="table-primary">
-                <th scope="col"></th>
-                <th scope="col">
-                  Drug of Interest <br />({drugName})
-                </th>
-                <th scope="col">Other drugs</th>
-                <th scope="col">Sums</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">
-                  Adverse Event of Interest <br />({adverseEvent})
-                </th>
-                <td>{numOfDrugAndAEReport}</td>
-                <td>{numOfAdverseEventReport - numOfDrugAndAEReport}</td>
-                <td>{numOfAdverseEventReport}</td>
-              </tr>
-              <tr>
-                <th scope="row">Other events</th>
-                <td>{numOfDrugReport - numOfDrugAndAEReport}</td>
-                <td>
-                  {numOfTotalReport -
-                    numOfDrugReport -
-                    numOfAdverseEventReport +
-                    numOfDrugAndAEReport}
-                </td>
-                <td>{numOfTotalReport - numOfAdverseEventReport}</td>
-              </tr>
-              <tr>
-                <th scope="row">Sums</th>
-                <td>{numOfDrugReport}</td>
-                <td>{numOfTotalReport - numOfDrugReport}</td>
-                <td>{numOfTotalReport}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="row">
-            <div className="col text-muted my-1">
-              <h6>Last updated: {dateTime}</h6>
-            </div>
-            <div className="col text-right">
-              <Button
-                variant="primary"
-                onClick={() => {
-                  handleUpdateButtonClick();
-                }}
-              >
-                Refresh
-              </Button>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="mt-3" key={id}>
+            <table className="table table-hover">
+              <thead>
+                <tr className="table-primary">
+                  <th scope="col"></th>
+                  <th scope="col">
+                    Drug of Interest <br />({drugName})
+                  </th>
+                  <th scope="col">Other drugs</th>
+                  <th scope="col">Sums</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    Adverse Event of Interest <br />({adverseEvent})
+                  </th>
+                  <td>{numOfDrugAndAEReport}</td>
+                  <td>{numOfAdverseEventReport - numOfDrugAndAEReport}</td>
+                  <td>{numOfAdverseEventReport}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Other events</th>
+                  <td>{numOfDrugReport - numOfDrugAndAEReport}</td>
+                  <td>
+                    {numOfTotalReport -
+                      numOfDrugReport -
+                      numOfAdverseEventReport +
+                      numOfDrugAndAEReport}
+                  </td>
+                  <td>{numOfTotalReport - numOfAdverseEventReport}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Sums</th>
+                  <td>{numOfDrugReport}</td>
+                  <td>{numOfTotalReport - numOfDrugReport}</td>
+                  <td>{numOfTotalReport}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="row">
+              <div className="col text-muted my-1">
+                <h6>Last updated: {dateTime}</h6>
+              </div>
+              <div className="col text-right">
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    handleUpdateButtonClick();
+                  }}
+                >
+                  Refresh
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

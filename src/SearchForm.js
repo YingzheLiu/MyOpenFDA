@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import { saveFavorite } from "./api";
+import Loading from "./Loading";
 
 export default function SearchForm() {
   const [drugName, setDrugName] = useState("");
@@ -16,7 +17,9 @@ export default function SearchForm() {
   const [numOfAdverseEventReport, setNumOfAdverseEventReport] = useState(0);
   const [numOfDrugAndAEReport, setNumOfDrugAndAEReport] = useState(0);
   const [numOfTotalReport, setNumOfTotalReport] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingForSpinner, setIsLoadingForSpinner] = useState(false);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [validated, setValidated] = useState(false);
   //   const [drugError, setDrugError] = useState("");
   const history = useHistory();
@@ -52,6 +55,8 @@ export default function SearchForm() {
       event.stopPropagation();
     } else {
       setIsLoading(true);
+      setIsLoadingButton(true);
+      setIsLoadingForSpinner(true);
       Promise.all([
         fetchDrug(drugName),
         fetchAdverseEvent(adverseEvent),
@@ -88,8 +93,9 @@ export default function SearchForm() {
       //   fetchAllReports().then((result) => {
       //     setNumOfTotalReport(result);
       //   });
-
+      setIsLoadingForSpinner(false);
       setIsLoading(false);
+      setIsLoadingButton(false);
     }
     setValidated(true);
   }
@@ -132,10 +138,11 @@ export default function SearchForm() {
             Please provide a valid adverse event.
           </Form.Control.Feedback>
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          {isLoading ? "Loading…" : "Submit"}
+        <Button variant="primary" type="submit" disabled={isLoadingButton}>
+          {isLoadingButton ? "Loading…" : "Submit"}
         </Button>
       </Form>
+      {isLoadingForSpinner && <Loading />}
       {!isLoading && (
         <>
           <h3>Number of Drug Reports: {numOfDrugReport}</h3>

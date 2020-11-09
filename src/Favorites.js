@@ -54,7 +54,7 @@ export default function Favorites() {
           Home
         </Link>
         <h3 className="mt-3">
-          <FontAwesomeIcon icon={faStar} color={"yellow"} size={"x"} /> MY
+          <FontAwesomeIcon icon={faStar} color={"yellow"} size={"1x"} /> MY
           FAVORITES
         </h3>
         {isLoading ? (
