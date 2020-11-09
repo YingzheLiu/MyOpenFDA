@@ -9,7 +9,7 @@ import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import { saveFavorite } from "./api";
 
-export default function SearchForm({ drugAndAEs }) {
+export default function SearchForm() {
   const [drugName, setDrugName] = useState("");
   const [adverseEvent, setAdverseEvent] = useState("");
   const [numOfDrugReport, setNumOfDrugReport] = useState(0);
@@ -18,8 +18,7 @@ export default function SearchForm({ drugAndAEs }) {
   const [numOfTotalReport, setNumOfTotalReport] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [drugError, setDrugError] = useState("");
-  const [favorites, setFavorites] = useState([]);
+  //   const [drugError, setDrugError] = useState("");
   const history = useHistory();
 
   function addToFavorites() {
