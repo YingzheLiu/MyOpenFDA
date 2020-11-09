@@ -8,7 +8,7 @@ import { fetchDrugAndAE } from "./fetchDrugAndAE";
 import { fetchAllReports } from "./fetchAllReports";
 import moment from "moment";
 
-export default function FavoriteDetail({ drugAndAEs }) {
+export default function FavoriteDetail() {
   const { id } = useParams();
   const [drugName, setDrugName] = useState("");
   const [adverseEvent, setAdverseEvent] = useState("");

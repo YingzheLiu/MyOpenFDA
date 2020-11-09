@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchFavorites, destroyFavorite } from "./api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import Loading from "./Loading";
+import ConfirmDeletedModal from "./ConfirmDeletedModal";
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isConfirmationShown, setIsConfirmationShown] = useState(false);
+  const [favoriteToBeDeleted, setFavoriteToBeDeleted] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchFavorites().then((favorites) => {
       setFavorites(favorites);
+      setIsLoading(false);
     });
   }, []);
 
@@ -19,19 +28,39 @@ export default function Favorites() {
       setFavorites(filteredFavorites);
     });
   }
-  function handleDeleteButtonClick(FavoriteToBeDeleted) {
-    console.log(FavoriteToBeDeleted);
-    deleteFavorite(FavoriteToBeDeleted);
+
+  function showDeleteConfirmation(favoriteToBeDeleted) {
+    setFavoriteToBeDeleted(favoriteToBeDeleted);
+    setIsConfirmationShown(true);
+  }
+  function hideDeleteConfirmation() {
+    setIsConfirmationShown(false);
+  }
+  function confirmDeletion() {
+    console.log(favoriteToBeDeleted);
+    deleteFavorite(favoriteToBeDeleted);
+    hideDeleteConfirmation();
   }
   return (
-    <div>
-      <Link to={`/`} className="btn btn-link">
-        Home
-      </Link>
-      <h3>FAVORITES</h3>
-      <ul>
-        <div className="mt-3">
-          <table className="table table-hover">
+    <>
+      {isConfirmationShown && (
+        <ConfirmDeletedModal
+          onClose={hideDeleteConfirmation}
+          onConfirm={confirmDeletion}
+        />
+      )}
+      <div className="mt-3">
+        <Link to={`/`} className="btn btn-link">
+          Home
+        </Link>
+        <h3 className="mt-3">
+          <FontAwesomeIcon icon={faStar} color={"yellow"} size={"x"} /> MY
+          FAVORITES
+        </h3>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <table className="table table-hover mt-3">
             <thead>
               <tr>
                 <th scope="col">Drug Name</th>
@@ -58,8 +87,11 @@ export default function Favorites() {
                         <div className="col">
                           <button
                             className="btn btn-danger"
+                            // onClick={() => {
+                            //   handleDeleteButtonClick(favorite);
+                            // }}
                             onClick={() => {
-                              handleDeleteButtonClick(favorite);
+                              showDeleteConfirmation(favorite);
                             }}
                           >
                             Remove
@@ -72,8 +104,8 @@ export default function Favorites() {
               );
             })}
           </table>
-        </div>
-      </ul>
-    </div>
+        )}
+      </div>
+    </>
   );
 }
