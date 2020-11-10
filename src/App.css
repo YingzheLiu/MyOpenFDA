@@ -166,3 +166,7 @@
       -2.6em 0em 0 0em rgba(2, 117, 216, 0.7), -1.8em -1.8em 0 0em #0275d8;
   }
 }
+
+.breadcrumb {
+  background: rgba(255, 255, 255, 1);
+}

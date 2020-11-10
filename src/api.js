@@ -34,6 +34,6 @@ export function saveFavorite(data) {
       "Content-Type": "application/json",
     },
   }).then((response) => {
-    return response.json;
+    return response.json();
   });
 }

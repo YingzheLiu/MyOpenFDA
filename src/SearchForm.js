@@ -5,10 +5,13 @@ import { fetchDrugAndAE } from "./fetchDrugAndAE";
 import { fetchAllReports } from "./fetchAllReports";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import { saveFavorite } from "./api";
 import Loading from "./Loading";
+import Notification from "./Notification";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function SearchForm() {
   const [drugName, setDrugName] = useState("");
@@ -21,12 +24,16 @@ export default function SearchForm() {
   const [isLoadingForSpinner, setIsLoadingForSpinner] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [addedFavorite, setAddedFavorite] = useState({});
+
   //   const [drugError, setDrugError] = useState("");
-  const history = useHistory();
+  // const history = useHistory();
 
   function addToFavorites() {
     var dateTime = moment().format("DD/MM/YYYY HH:mm:ss");
     console.log(dateTime);
+    setIsAdded(false);
     saveFavorite({
       drugName,
       adverseEvent,
@@ -37,6 +44,9 @@ export default function SearchForm() {
       dateTime,
     }).then((newFavorite) => {
       console.log(newFavorite);
+      setIsAdded(true);
+      setAddedFavorite(newFavorite);
+      // console.log(newFavorite.adverseEvent);
       //   setFavorites(drugAndAEs.concat(newFavorite));
     });
   }
@@ -101,14 +111,23 @@ export default function SearchForm() {
   }
   function handleClick() {
     addToFavorites();
-    history.push("/favorites");
   }
 
   return (
     <>
-      <Link to={`/favorites/`} className="btn btn-link">
-        My Favorites
-      </Link>
+      <div className="text-right">
+        {/* <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+              Home
+            </li>
+          </ol>
+        </nav> */}
+        <Link to={`/favorites/`} className="btn btn-success">
+          <FontAwesomeIcon icon={faStar} color={"yellow"} size={"1x"} />
+          My Favorites
+        </Link>
+      </div>
       <Form noValidate onSubmit={handleSubmit} validated={validated}>
         <Form.Group>
           <Form.Label htmlFor="drugName">Drug name</Form.Label>
@@ -155,6 +174,14 @@ export default function SearchForm() {
             Add to Favorites
           </Button>
         </>
+      )}
+      {isAdded && (
+        <Notification
+          variant={"success mt-3"}
+          message={" has been added to your favorites!"}
+          drugName={addedFavorite.drugName}
+          adverseEvent={addedFavorite.adverseEvent}
+        />
       )}
     </>
   );

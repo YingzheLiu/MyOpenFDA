@@ -92,9 +92,22 @@ export default function FavoriteDetail() {
   }
   return (
     <>
-      <Link to={`/favorites/`} className="btn btn-link">
+      {/* <Link to={`/favorites/`} className="btn btn-link">
         My Favorites
-      </Link>
+      </Link> */}
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <Link to={`/`}>Home</Link>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <Link to={`/favorites/`}>My Favorites</Link>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {drugName}-{adverseEvent}
+          </li>
+        </ol>
+      </nav>
       {isLoading ? (
         <Loading />
       ) : (
