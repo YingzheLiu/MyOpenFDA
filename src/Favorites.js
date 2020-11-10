@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Loading from "./Loading";
 import ConfirmDeletedModal from "./ConfirmDeletedModal";
-import Notification from "./Notification";
+// import Notification from "./Notification";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Favorites() {
@@ -13,7 +13,7 @@ export default function Favorites() {
   const [isLoading, setIsLoading] = useState(true);
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
   const [favoriteToBeDeleted, setFavoriteToBeDeleted] = useState([]);
-  const [isDeleted, setIsDeleted] = useState(false);
+  // const [isDeleted, setIsDeleted] = useState(false);
   const filledColor = "black";
   const size = "lg";
 
@@ -26,13 +26,13 @@ export default function Favorites() {
   }, []);
 
   function deleteFavorite(FavoriteToBeDeleted) {
-    setIsDeleted(false);
+    // setIsDeleted(false);
     destroyFavorite(FavoriteToBeDeleted.id).then(() => {
       const filteredFavorites = favorites.filter((favorite) => {
         return favorite.id !== FavoriteToBeDeleted.id;
       });
       setFavorites(filteredFavorites);
-      setIsDeleted(true);
+      // setIsDeleted(true);
     });
   }
 
