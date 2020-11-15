@@ -5,18 +5,14 @@ import { fetchDrugAndAE } from "./fetchDrugAndAE";
 import { fetchAllReports } from "./fetchAllReports";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import moment from "moment";
 import { saveFavorite } from "./api";
 import Loading from "./Loading";
-import Notification from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import Toastr from "./Toastr";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerInForm from "./DatePickerInForm";
 
@@ -32,12 +28,10 @@ export default function SearchForm() {
   const [isLoadingForSpinner, setIsLoadingForSpinner] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
-  const [addedFavorite, setAddedFavorite] = useState({});
-  const [drugError, setDrugError] = useState("");
-  const [AEError, setAEError] = useState("");
-  const [drugAndAEError, setDrugAndAEError] = useState("");
-  const [totalReportError, setTotalReportError] = useState("");
+  // const [drugError, setDrugError] = useState("");
+  // const [AEError, setAEError] = useState("");
+  // const [drugAndAEError, setDrugAndAEError] = useState("");
+  // const [totalReportError, setTotalReportError] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [startDateError, setStartDateError] = useState("");
@@ -60,7 +54,6 @@ export default function SearchForm() {
   function addToFavorites() {
     var dateTime = moment().format("DD/MM/YYYY HH:mm:ss");
     console.log(dateTime);
-    setIsAdded(false);
     saveFavorite({
       drugName,
       adverseEvent,
@@ -73,8 +66,7 @@ export default function SearchForm() {
       endDate,
     }).then((newFavorite) => {
       console.log(newFavorite);
-      setIsAdded(true);
-      setAddedFavorite(newFavorite);
+      // setAddedFavorite(newFavorite);
       notify(newFavorite);
       // console.log(newFavorite.adverseEvent);
       //   setFavorites(drugAndAEs.concat(newFavorite));
@@ -335,10 +327,10 @@ export default function SearchForm() {
             <FontAwesomeIcon icon={faStar} color={"yellow"} size={"1x"} /> Add
             to Favorites
           </Button>
-          <h6>{drugError}</h6>
+          {/* <h6>{drugError}</h6>
           <h6>{AEError}</h6>
           <h6>{drugAndAEError}</h6>
-          <h6>{totalReportError}</h6>
+          <h6>{totalReportError}</h6> */}
         </>
       )}
       {/* {isAdded && (
