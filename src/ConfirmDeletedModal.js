@@ -16,6 +16,7 @@ export default function ConfirmDeletedModal({ onClose, onConfirm }) {
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={onClose}
+                data-testid="cross-button"
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -29,6 +30,7 @@ export default function ConfirmDeletedModal({ onClose, onConfirm }) {
                 className="btn btn-secondary"
                 data-dismiss="modal"
                 onClick={onClose}
+                data-testid="cancel-button"
               >
                 Cancel
               </button>
@@ -36,6 +38,7 @@ export default function ConfirmDeletedModal({ onClose, onConfirm }) {
                 type="button"
                 className="btn btn-danger"
                 onClick={onConfirm}
+                data-testid="delete-button"
               >
                 Delete
               </button>

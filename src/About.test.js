@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import About from "./About";
+import CommentForm from "./CommentForm";
 import { MemoryRouter, Route } from "react-router-dom";
 import { createServer } from "miragejs";
 import moment from "moment";
@@ -36,37 +37,31 @@ afterEach(() => {
   server.shutdown();
 });
 
-// test("rendering comments", async () => {
-//   const createComment = jest.fn();
-//   const { container, queryByText, getByTestId } = render(
-//     <MemoryRouter initialEntries={["/about"]}>
-//       <Route path="/about" exact={true}>
-//         <About />
-//       </Route>
-//     </MemoryRouter>
-//   );
+test("Adding a comment", async () => {
+  const createComment = jest.fn();
+  const { getByTestId } = render(<CommentForm createComment={createComment} />);
 
-//   fireEvent.change(getByTestId("author"), {
-//     target: {
-//       value: "New author",
-//     },
-//   });
+  fireEvent.change(getByTestId("author"), {
+    target: {
+      value: "New author",
+    },
+  });
 
-//   fireEvent.change(getByTestId("text"), {
-//     target: {
-//       value: "New comment",
-//     },
-//   });
+  fireEvent.change(getByTestId("text"), {
+    target: {
+      value: "New comment",
+    },
+  });
 
-//   fireEvent.click(getByTestId("post-button"));
+  fireEvent.click(getByTestId("post-button"));
 
-//   var currDateTime = moment().format("DD/MM/YYYY HH:mm:ss");
-//   expect(createComment).toHaveBeenCalledWith(
-//     "New author",
-//     "New comment",
-//     currDateTime
-//   );
-// });
+  var currDateTime = moment().format("DD/MM/YYYY HH:mm:ss");
+  expect(createComment).toHaveBeenCalledWith(
+    "New author",
+    "New comment",
+    currDateTime
+  );
+});
 
 test("Displaying the current text in about page", async () => {
   const { getByTestId } = render(

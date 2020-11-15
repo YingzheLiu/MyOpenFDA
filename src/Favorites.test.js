@@ -7,6 +7,7 @@ import {
 import Favorites from "./Favorites";
 import { createServer } from "miragejs";
 import { MemoryRouter, Route } from "react-router-dom";
+import ReactDOM from "react-dom";
 
 let server;
 
@@ -79,6 +80,7 @@ test("rendering my favorites and list in the table", async () => {
 
 // test("rendering the delete modal", async () => {
 //   const showDeleteConfirmation = jest.fn();
+//   ReactDOM.createPortal = jest.fn((ConfirmDeletedModal) => ConfirmDeletedModal);
 //   const { container, queryByText, getByTestId, getAllByTestId } = render(
 //     <MemoryRouter initialEntries={["/favorites"]}>
 //       <Route path="/favorites" exact={true}>
