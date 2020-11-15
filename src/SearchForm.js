@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerInForm from "./DatePickerInForm";
+import Alert from "react-bootstrap/Alert";
 
 toast.configure();
 export default function SearchForm() {
@@ -28,17 +29,12 @@ export default function SearchForm() {
   const [isLoadingForSpinner, setIsLoadingForSpinner] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [validated, setValidated] = useState(false);
-  // const [drugError, setDrugError] = useState("");
-  // const [AEError, setAEError] = useState("");
-  // const [drugAndAEError, setDrugAndAEError] = useState("");
-  // const [totalReportError, setTotalReportError] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+  const [drugError, setDrugError] = useState("");
+  const [AEError, setAEError] = useState("");
+  const [startDate, setStartDate] = useState(new Date(1987, 0, 1, 0, 0, 0));
   const [endDate, setEndDate] = useState(new Date());
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
-
-  //   const [drugError, setDrugError] = useState("");
-  // const history = useHistory();
 
   function notify(newFavorite) {
     toast.success(
@@ -65,11 +61,7 @@ export default function SearchForm() {
       startDate,
       endDate,
     }).then((newFavorite) => {
-      console.log(newFavorite);
-      // setAddedFavorite(newFavorite);
       notify(newFavorite);
-      // console.log(newFavorite.adverseEvent);
-      //   setFavorites(drugAndAEs.concat(newFavorite));
     });
   }
 
@@ -90,55 +82,53 @@ export default function SearchForm() {
       setIsLoadingButton(true);
       setIsLoadingForSpinner(true);
 
-      console.log(startDate);
-      // var formatedStartDate = moment(startDate).format("YYYYMMDD");
-      // var formatedEndDate = moment(endDate).format("YYYYMMDD");
-      // console.log(formatedStartDate);
-      Promise.all([
-        fetchDrug(drugName, startDate, endDate),
-        fetchAdverseEvent(adverseEvent, startDate, endDate),
-        fetchDrugAndAE(drugName, adverseEvent, startDate, endDate),
-        fetchAllReports(startDate, endDate),
-      ]).then(
-        ([
-          numOfDrugReport,
-          numOfAdverseEventReport,
-          numOfDrugAndAEReport,
-          numOfTotalReport,
-        ]) => {
-          setNumOfDrugReport(numOfDrugReport);
-          setNumOfAdverseEventReport(numOfAdverseEventReport);
-          setNumOfDrugAndAEReport(numOfDrugAndAEReport);
-          setNumOfTotalReport(numOfTotalReport);
+      var fetchStartDate = moment(startDate).format("YYYYMMDD");
+      var fetchEndDate = moment(endDate).format("YYYYMMDD");
+      setStartDate(moment(startDate).format("YYYYMMDD"));
+      setEndDate(moment(endDate).format("YYYYMMDD"));
+
+      Promise.allSettled([
+        fetchDrug(drugName, fetchStartDate, fetchEndDate),
+        fetchAdverseEvent(adverseEvent, fetchStartDate, fetchEndDate),
+        fetchDrugAndAE(drugName, adverseEvent, fetchStartDate, fetchEndDate),
+        fetchAllReports(fetchStartDate, fetchEndDate),
+      ]).then((values) => {
+        console.log(values);
+        if (values[0].status === "rejected") {
+          setDrugError("Drug name is invalid!");
+        } else {
+          setDrugError(null);
         }
-        // () => {
-        //   console.log(arguments);
-        //   setDrugError(drugError);
-        //   setAEError(AEError);
-        //   setDrugAndAEError(drugAndAEError);
-        //   setTotalReportError(totalReportError);
-        // }
-      );
-      //   fetchDrug(drugName).then(
-      //     (result) => {
-      //       setNumOfDrugReport(result);
-      //     },
-      //     (error) => {
-      //       setDrugError(error);
-      //       console.log(error);
-      //     }
-      //   );
-      //   fetchAdverseEvent(adverseEvent).then((result) => {
-      //     setNumOfAdverseEventReport(result);
-      //   });
-      //   fetchDrugAndAE(drugName, adverseEvent).then((result) => {
-      //     setNumOfDrugAndAEReport(result);
-      //   });
-      //   fetchAllReports().then((result) => {
-      //     setNumOfTotalReport(result);
-      //   });
+        if (values[1].status === "rejected") {
+          setAEError("Adverse event name is invalid!");
+        } else {
+          setAEError(null);
+        }
+        if (values[0].status === "fulfilled") {
+          setNumOfDrugReport(values[0].value);
+        }
+        if (values[1].status === "fulfilled") {
+          setNumOfAdverseEventReport(values[1].value);
+        }
+        if (values[2].status === "fulfilled") {
+          setNumOfDrugAndAEReport(values[2].value);
+        }
+        if (values[3].status === "fulfilled") {
+          setNumOfTotalReport(values[3].value);
+        }
+
+        if (
+          values[0].status === "rejected" ||
+          values[1].status === "rejected" ||
+          values[2].status === "rejected" ||
+          values[3].status === "rejected"
+        ) {
+          setIsLoading(true);
+        } else {
+          setIsLoading(false);
+        }
+      });
       setIsLoadingForSpinner(false);
-      setIsLoading(false);
       setIsLoadingButton(false);
     }
     setValidated(true);
@@ -203,7 +193,7 @@ export default function SearchForm() {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid drug name.
+            Please provide a drug name.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
@@ -217,11 +207,15 @@ export default function SearchForm() {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid adverse event.
+            {AEError === "rejected"
+              ? "Adverse event is invalid"
+              : "Please provide a adverse event."}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
-          <Form.Label htmlFor="receiveDate">Receive Date (Optional)</Form.Label>
+          <Form.Label htmlFor="receiveDate">
+            Reports Receive Date (Optional)
+          </Form.Label>
           <div className="row">
             <div className="col">
               <DatePickerInForm
@@ -233,6 +227,7 @@ export default function SearchForm() {
                 dateFormat={"YYYY-MM-DD"}
               />
             </div>
+            <h2>-</h2>
             <div className="col">
               <DatePickerInForm
                 type="date"
@@ -248,6 +243,16 @@ export default function SearchForm() {
         <Button variant="primary" type="submit" disabled={isLoadingButton}>
           {isLoadingButton ? "Loading…" : "Search"}
         </Button>
+        {drugError && (
+          <Alert variant="danger" className="mt-3">
+            {drugError}
+          </Alert>
+        )}
+        {AEError && (
+          <Alert variant="danger" className="mt-3">
+            {AEError}
+          </Alert>
+        )}
       </Form>
       {isLoadingForSpinner && <Loading />}
       {!isLoading && (
@@ -327,20 +332,8 @@ export default function SearchForm() {
             <FontAwesomeIcon icon={faStar} color={"yellow"} size={"1x"} /> Add
             to Favorites
           </Button>
-          {/* <h6>{drugError}</h6>
-          <h6>{AEError}</h6>
-          <h6>{drugAndAEError}</h6>
-          <h6>{totalReportError}</h6> */}
         </>
       )}
-      {/* {isAdded && (
-        <Notification
-          variant={"success mt-3"}
-          message={" has been added to your favorites!"}
-          drugName={addedFavorite.drugName}
-          adverseEvent={addedFavorite.adverseEvent}
-        />
-      )} */}
     </>
   );
 }

@@ -89,6 +89,7 @@ export default function Favorites() {
           <thead>
             <tr>
               <th scope="col"> Drug Name-Adverse Event</th>
+              <th scope="col"> Report Receive Date</th>
               <th scope="col" className="text-center"></th>
             </tr>
           </thead>
@@ -105,7 +106,9 @@ export default function Favorites() {
                       {favorite.drugName}-{favorite.adverseEvent}
                     </Link>
                   </td>
-
+                  <td>
+                    {favorite.startDate} - {favorite.endDate}
+                  </td>
                   <td>
                     <div className="text-right">
                       <button
@@ -115,7 +118,6 @@ export default function Favorites() {
                           showDeleteConfirmation(favorite);
                         }}
                         data-testid="delete-icon-button"
-                        // style={{ float: "right" }}
                       >
                         <FontAwesomeIcon
                           icon={faTrash}

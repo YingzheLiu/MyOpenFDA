@@ -12,7 +12,6 @@ export default function CommentForm({ createComment }) {
     setText(event.target.value);
   }
   function handleSubmit(event) {
-    console.log("handleSubmit");
     event.preventDefault();
     var currDateTime = moment().format("DD/MM/YYYY HH:mm:ss");
     createComment(author, text, currDateTime);

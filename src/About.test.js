@@ -73,7 +73,7 @@ test("Displaying the current text in about page", async () => {
   );
 
   expect(getByTestId("goal")).toHaveTextContent(
-    "The idea of this app is from a fellowship project I am working on with pharmacology statisticians. We are trying to get the data from openFDA API and do the disproportionality analysis to figure the relations between drugs and side effects. My goal of this app is to provide easy access to the openFDA data for people regardless of whether they have knowledge about api."
+    "The idea of this app is from a fellowship project I am working on with pharmacology statisticians. We are trying to get the data from openFDA API and do the disproportionality analysis on Pharmacovigilance Surveilance to figure the relations between drugs and side effects. My goal of this app is to provide easy access to the openFDA data for people regardless of whether they have knowledge about api. The way of doing the disproportionality analysis is using Reporting Odds Ratio (ROR) and Proportional Reporting Ratio (PRR) as below:"
   );
   expect(getByTestId("thank-you")).toHaveTextContent(
     "The app is still developing and please feel free to leave comments down below about things that I can improve! Thank you!"

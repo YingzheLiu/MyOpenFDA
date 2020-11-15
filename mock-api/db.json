@@ -23,20 +23,38 @@
       "startDate": "19980513",
       "endDate": "20201105",
       "id": 1
+    },
+    {
+      "drugName": "remicade",
+      "adverseEvent": "pain",
+      "numOfDrugReport": 117505,
+      "numOfAdverseEventReport": 336210,
+      "numOfDrugAndAEReport": 5165,
+      "numOfTotalReport": 12254197,
+      "dateTime": "15/11/2020 11:41:31",
+      "startDate": "19870101",
+      "endDate": "20201115",
+      "id": 2
     }
   ],
   "Comments": [
     {
       "id": 0,
       "author": "nikki",
-      "text": "Good job!",
+      "text": "Final finishhh!",
       "dateTime": "10/11/2020 01:01:45"
     },
     {
       "id": 1,
-      "author": "david",
-      "text": "Excellent project!",
+      "author": "fakedavid",
+      "text": "A project!",
       "dateTime": "15/11/2020 01:01:45"
+    },
+    {
+      "author": "test1",
+      "text": "Add a comment",
+      "dateTime": "15/11/2020 14:51:57",
+      "id": 2
     }
   ]
 }
