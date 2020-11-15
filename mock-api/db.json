@@ -1,94 +1,42 @@
 {
   "favorites": [
     {
-      "id": 1,
-      "drugName": "infliximab",
-      "adverseEvent": "off label use",
-      "numOfDrugReport": 24127,
-      "numOfAdverseEventReport": 341416,
-      "numOfDrugAndAEReport": 2944,
-      "numOfTotalReport": 12254197,
-      "dateTime": "10/11/2020 12:06:11"
-    },
-    {
-      "id": 2,
-      "drugName": "inflectra",
-      "adverseEvent": "pain",
-      "numOfDrugReport": 6094,
-      "numOfAdverseEventReport": 336225,
-      "numOfDrugAndAEReport": 428,
-      "numOfTotalReport": 12254197,
-      "dateTime": "08/11/2020 15:42:01"
-    },
-    {
-      "drugName": "infliximab",
-      "adverseEvent": "drug ineffective",
-      "numOfDrugReport": 24127,
-      "numOfAdverseEventReport": 768745,
-      "numOfDrugAndAEReport": 4082,
-      "numOfTotalReport": 12254197,
-      "dateTime": "09/11/2020 00:39:02",
-      "id": 4
-    },
-    {
-      "drugName": "remicade",
-      "adverseEvent": "DYSPNOEA",
-      "numOfDrugReport": 117505,
-      "numOfAdverseEventReport": 353625,
-      "numOfDrugAndAEReport": 4526,
-      "numOfTotalReport": 12254197,
-      "dateTime": "09/11/2020 00:43:22",
-      "id": 5
-    },
-    {
-      "drugName": "infliximab",
-      "adverseEvent": "DYSPNOEA",
-      "numOfDrugReport": 24127,
-      "numOfAdverseEventReport": 353625,
-      "numOfDrugAndAEReport": 642,
-      "numOfTotalReport": 12254197,
-      "dateTime": "09/11/2020 00:46:21",
-      "id": 8
-    },
-    {
-      "drugName": "remicade",
-      "adverseEvent": "off label use",
-      "numOfDrugReport": 117505,
-      "numOfAdverseEventReport": 341416,
-      "numOfDrugAndAEReport": 7688,
-      "numOfTotalReport": 12254197,
-      "dateTime": "09/11/2020 00:48:04",
-      "id": 9
-    },
-    {
-      "drugName": "remicade",
-      "adverseEvent": "pain",
-      "numOfDrugReport": 117505,
-      "numOfAdverseEventReport": 336225,
-      "numOfDrugAndAEReport": 5165,
-      "numOfTotalReport": 12254197,
-      "dateTime": "09/11/2020 00:50:05",
-      "id": 10
-    },
-    {
+      "id": 0,
       "drugName": "remicade",
       "adverseEvent": "drug ineffective",
       "numOfDrugReport": 117505,
-      "numOfAdverseEventReport": 768745,
+      "numOfAdverseEventReport": 768742,
       "numOfDrugAndAEReport": 16464,
-      "numOfTotalReport": 12254197,
-      "dateTime": "09/11/2020 00:59:00",
-      "id": 12
+      "numOfTotalReport": 12254188,
+      "dateTime": "15/11/2020 10:12:38",
+      "startDate": "19981014",
+      "endDate": "20201113"
     },
     {
-      "id": 13,
-      "drugName": "remicade",
+      "drugName": "infliximab",
       "adverseEvent": "pain",
-      "numOfDrugReport": 117505,
-      "numOfAdverseEventReport": 336225,
-      "numOfDrugAndAEReport": 5165,
-      "numOfTotalReport": 12254197,
-      "dateTime": "10/11/2020 11:49:52"
+      "numOfDrugReport": 24127,
+      "numOfAdverseEventReport": 336220,
+      "numOfDrugAndAEReport": 828,
+      "numOfTotalReport": 12254191,
+      "dateTime": "15/11/2020 02:17:44",
+      "startDate": "19980513",
+      "endDate": "20201105",
+      "id": 1
+    }
+  ],
+  "Comments": [
+    {
+      "id": 0,
+      "author": "nikki",
+      "text": "Good job!",
+      "dateTime": "10/11/2020 01:01:45"
+    },
+    {
+      "id": 1,
+      "author": "david",
+      "text": "Excellent project!",
+      "dateTime": "15/11/2020 01:01:45"
     }
   ]
 }

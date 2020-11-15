@@ -8,6 +8,9 @@ import { fetchDrugAndAE } from "./fetchDrugAndAE";
 import { fetchAllReports } from "./fetchAllReports";
 import moment from "moment";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
 
 export default function FavoriteDetail() {
   const { id } = useParams();
@@ -18,11 +21,8 @@ export default function FavoriteDetail() {
   const [numOfAdverseEventReport, setNumOfAdverseEventReport] = useState(0);
   const [numOfDrugAndAEReport, setNumOfDrugAndAEReport] = useState(0);
   const [numOfTotalReport, setNumOfTotalReport] = useState(0);
-
-  //   const favorite = drugAndAEs.find((drugAndAE) => {
-  //     return drugAndAE.id === Number(id);
-  //   });
-
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
@@ -38,6 +38,8 @@ export default function FavoriteDetail() {
           setNumOfDrugAndAEReport(favorite.numOfDrugAndAEReport);
           setNumOfTotalReport(favorite.numOfTotalReport);
           setDateTime(favorite.dateTime);
+          setStartDate(favorite.startDate);
+          setEndDate(favorite.endDate);
         },
         (error) => {
           setError(error);
@@ -48,13 +50,26 @@ export default function FavoriteDetail() {
       });
   }, [id]);
 
+  function notify(drugName, adverseEvent) {
+    toast.info(
+      <div>
+        The information of{" "}
+        <strong>
+          {drugName}-{adverseEvent}
+        </strong>{" "}
+        has been updated!
+      </div>
+    );
+  }
+
   function handleUpdateButtonClick() {
+    console.log("handleUpdateButtonClick is called");
     var currDateTime = moment().format("DD/MM/YYYY HH:mm:ss");
     Promise.all([
-      fetchDrug(drugName),
-      fetchAdverseEvent(adverseEvent),
-      fetchDrugAndAE(drugName, adverseEvent),
-      fetchAllReports(),
+      fetchDrug(drugName, startDate, endDate),
+      fetchAdverseEvent(adverseEvent, startDate, endDate),
+      fetchDrugAndAE(drugName, adverseEvent, startDate, endDate),
+      fetchAllReports(startDate, endDate),
     ]).then(
       ([
         numOfDrugReport,
@@ -71,6 +86,8 @@ export default function FavoriteDetail() {
           numOfDrugAndAEReport,
           numOfTotalReport,
           dateTime: currDateTime,
+          startDate,
+          endDate,
         }).then(() => {
           console.log("updated!");
         });
@@ -79,31 +96,45 @@ export default function FavoriteDetail() {
         setNumOfDrugAndAEReport(numOfDrugAndAEReport);
         setNumOfTotalReport(numOfTotalReport);
         setDateTime(currDateTime);
+        notify(drugName, adverseEvent);
       }
     );
   }
 
   if (error) {
     return (
-      <div>
-        <p>{error}</p>
-      </div>
+      <>
+        <div className="header">
+          <Helmet>
+            <meta charSet="UTF-8" />
+            <title>Page Not Found</title>
+          </Helmet>
+        </div>
+        <div>
+          <p>{error}</p>
+        </div>
+      </>
     );
   }
   return (
     <>
-      {/* <Link to={`/favorites/`} className="btn btn-link">
-        My Favorites
-      </Link> */}
+      <div className="header">
+        <Helmet>
+          <meta charSet="UTF-8" />
+          <title>
+            {drugName}-{adverseEvent}
+          </title>
+        </Helmet>
+      </div>
       <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
             <Link to={`/`}>Home</Link>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
+          <li className="breadcrumb-item active" aria-current="page">
             <Link to={`/favorites/`}>My Favorites</Link>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
+          <li className="breadcrumb-item active" aria-current="page">
             {drugName}-{adverseEvent}
           </li>
         </ol>
@@ -113,11 +144,15 @@ export default function FavoriteDetail() {
       ) : (
         <>
           <div className="mt-3" key={id}>
+            <h6>
+              Receive Date: {moment(startDate).format("MM/DD/YYYY")}-
+              {moment(endDate).format("MM/DD/YYYY")}
+            </h6>
             <table className="table table-hover">
               <thead>
                 <tr className="table-primary">
                   <th scope="col"></th>
-                  <th scope="col">
+                  <th scope="col" data-testid="drugName">
                     Drug of Interest <br />({drugName})
                   </th>
                   <th scope="col">Other drugs</th>
@@ -126,7 +161,7 @@ export default function FavoriteDetail() {
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">
+                  <th scope="row" data-testid="adverseEvent">
                     Adverse Event of Interest <br />({adverseEvent})
                   </th>
                   <td>{numOfDrugAndAEReport}</td>
@@ -152,20 +187,42 @@ export default function FavoriteDetail() {
                 </tr>
               </tbody>
             </table>
-            <div className="row">
-              <div className="col text-muted my-1">
-                <h6>Last updated: {dateTime}</h6>
-              </div>
-              <div className="col text-right">
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    handleUpdateButtonClick();
-                  }}
-                >
-                  Refresh
-                </Button>
-              </div>
+            <hr></hr>
+            <h6>
+              <strong>ROR:</strong>{" "}
+              {(
+                numOfDrugAndAEReport /
+                (numOfDrugReport - numOfDrugAndAEReport) /
+                ((numOfAdverseEventReport - numOfDrugAndAEReport) /
+                  (numOfTotalReport -
+                    numOfDrugReport -
+                    numOfAdverseEventReport +
+                    numOfDrugAndAEReport))
+              ).toPrecision(4)}{" "}
+              <strong style={{ marginLeft: "10px" }}>PRR:</strong>{" "}
+              {(
+                numOfDrugAndAEReport /
+                numOfAdverseEventReport /
+                ((numOfDrugReport - numOfDrugAndAEReport) /
+                  (numOfTotalReport - numOfAdverseEventReport))
+              ).toPrecision(4)}
+            </h6>
+            <div style={{ float: "right" }}>
+              <h6 style={{ display: "inline-block" }} className="text-muted">
+                Last updated: {dateTime}
+              </h6>
+              {/* </div>
+              <div className="col text-right"> */}
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleUpdateButtonClick();
+                }}
+                style={{ marginLeft: "20px" }}
+                data-testid="refresh-button"
+              >
+                Refresh
+              </Button>
             </div>
           </div>
         </>

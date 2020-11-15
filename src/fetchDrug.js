@@ -1,8 +1,13 @@
-export function fetchDrug(drug) {
+export function fetchDrug(drug, startDate, endDate) {
+  console.log(startDate);
   return fetch(
     'https://api.fda.gov/drug/event.json?api_key=k3dv25MezIcoLL9ogbqu7rD51CI3PFmCtdWa1965&search=patient.drug.medicinalproduct:"' +
       drug +
-      '"',
+      '"+AND+receivedate:[' +
+      startDate +
+      "+TO+" +
+      endDate +
+      "]",
     {
       headers: {
         Accept: "application/json",

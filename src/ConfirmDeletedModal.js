@@ -9,7 +9,7 @@ export default function ConfirmDeletedModal({ onClose, onConfirm }) {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Delete Issue</h5>
+              <h5 className="modal-title">Delete Favorite</h5>
               <button
                 type="button"
                 className="close"

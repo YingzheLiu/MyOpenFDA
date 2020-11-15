@@ -1,6 +1,10 @@
-export function fetchAllReports() {
+export function fetchAllReports(startDate, endDate) {
   return fetch(
-    "https://api.fda.gov/drug/event.json?api_key=k3dv25MezIcoLL9ogbqu7rD51CI3PFmCtdWa1965",
+    "https://api.fda.gov/drug/event.json?api_key=k3dv25MezIcoLL9ogbqu7rD51CI3PFmCtdWa1965&search=receivedate:[" +
+      startDate +
+      "+TO+" +
+      endDate +
+      "]",
     {
       headers: {
         Accept: "application/json",

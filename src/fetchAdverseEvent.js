@@ -1,8 +1,12 @@
-export function fetchAdverseEvent(event) {
+export function fetchAdverseEvent(event, startDate, endDate) {
   return fetch(
     'https://api.fda.gov/drug/event.json?api_key=k3dv25MezIcoLL9ogbqu7rD51CI3PFmCtdWa1965&search=patient.reaction.reactionmeddrapt.exact:"' +
       event +
-      '"',
+      '"+AND+receivedate:[' +
+      startDate +
+      "+TO+" +
+      endDate +
+      "]",
     // 'https://api.fda.gov/drug/event.json?limit=25&search=patient.reaction.reactionmeddrapt.exact:"' +
     //   event +
     //   '"',
@@ -22,7 +26,7 @@ export function fetchAdverseEvent(event) {
     })
     .then((responseData) => {
       //   console.log("responseData: ");
-      //   console.log(responseData);
+      console.log(responseData);
       return responseData.meta.results.total;
     });
 }

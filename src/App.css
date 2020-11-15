@@ -170,3 +170,15 @@
 .breadcrumb {
   background: rgba(255, 255, 255, 1);
 }
+.navheader {
+  margin-top: 15px;
+  font-size: 18px;
+  color: black !important;
+  background-color: #b3beca !important;
+}
+.btnspace {
+  margin: 15px;
+}
+body {
+  /* font-family: "Avenir", Helvetica, Arial, sans-serif; */
+}
