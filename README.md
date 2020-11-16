@@ -4,6 +4,7 @@
 ### [API Heroku Deployed Link](https://nikki-myopenfda.herokuapp.com/)
 ### [YouTube Link]()
 
+![Terminal Output For Testing](./FinalProject_TestTerminalOutput.jpg)
 
 ### Application Requirements
 - Client-side routing with React Router
