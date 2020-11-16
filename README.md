@@ -4,6 +4,7 @@
 ### [API Heroku Deployed Link](https://nikki-myopenfda.herokuapp.com/)
 ### [YouTube Link](https://youtu.be/VSNCCUPdcvU)
 ### [Zoom Link (just in case)](https://usc.zoom.us/rec/share/RBWEvMgWQFKUKaL3uRDKk5xzFiYKid3wcefzYCjMavztkOGKb-vXvGswrIX0-mSn.kgdu_ddRXND5NObV)
+### [OpenFDA](https://open.fda.gov/about/)
 ### [OpenFDA API Data Example](https://api.fda.gov/drug/event.json?)
 ### [Lists of example drug names can search](https://api.fda.gov/drug/event.json?count=patient.drug.medicinalproduct.exact)
 ### [Lists of adverse event names can search](https://api.fda.gov/drug/event.json?count=patient.reaction.reactionmeddrapt.exact)
