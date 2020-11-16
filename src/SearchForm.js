@@ -279,26 +279,38 @@ export default function SearchForm() {
                 <th scope="row">
                   Adverse Event of Interest <br />({adverseEvent})
                 </th>
-                <td>{numOfDrugAndAEReport}</td>
-                <td>{numOfAdverseEventReport - numOfDrugAndAEReport}</td>
+                <td>{numOfDrugAndAEReport.toLocaleString()}</td>
+                <td>
+                  {(
+                    numOfAdverseEventReport - numOfDrugAndAEReport
+                  ).toLocaleString()}
+                </td>
                 <td>{numOfAdverseEventReport}</td>
               </tr>
               <tr>
                 <th scope="row">Other events</th>
-                <td>{numOfDrugReport - numOfDrugAndAEReport}</td>
                 <td>
-                  {numOfTotalReport -
+                  {(numOfDrugReport - numOfDrugAndAEReport).toLocaleString()}
+                </td>
+                <td>
+                  {(
+                    numOfTotalReport -
                     numOfDrugReport -
                     numOfAdverseEventReport +
-                    numOfDrugAndAEReport}
+                    numOfDrugAndAEReport
+                  ).toLocaleString()}
                 </td>
-                <td>{numOfTotalReport - numOfAdverseEventReport}</td>
+                <td>
+                  {(
+                    numOfTotalReport - numOfAdverseEventReport
+                  ).toLocaleString()}
+                </td>
               </tr>
               <tr>
                 <th scope="row">Sums</th>
-                <td>{numOfDrugReport}</td>
-                <td>{numOfTotalReport - numOfDrugReport}</td>
-                <td>{numOfTotalReport}</td>
+                <td>{numOfDrugReport.toLocaleString()}</td>
+                <td>{(numOfTotalReport - numOfDrugReport).toLocaleString()}</td>
+                <td>{numOfTotalReport.toLocaleString()}</td>
               </tr>
             </tbody>
           </table>

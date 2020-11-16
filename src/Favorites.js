@@ -8,6 +8,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
+import moment from "moment";
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -107,7 +108,8 @@ export default function Favorites() {
                     </Link>
                   </td>
                   <td>
-                    {favorite.startDate} - {favorite.endDate}
+                    {moment(favorite.startDate).format("MM/DD/YYYY")}-
+                    {moment(favorite.endDate).format("MM/DD/YYYY")}
                   </td>
                   <td>
                     <div className="text-right">
