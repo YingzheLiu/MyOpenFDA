@@ -2,7 +2,7 @@
 ### [Repo link](https://github.com/YingzheLiu/myOpenFDA)
 ### [React frontend Netlify Deployed Link](https://nikkiliu-myopenfda.netlify.app/)
 ### [API Heroku Deployed Link](https://nikki-myopenfda.herokuapp.com/)
-### [YouTube Link]()
+### [YouTube Link](https://usc.zoom.us/rec/share/RBWEvMgWQFKUKaL3uRDKk5xzFiYKid3wcefzYCjMavztkOGKb-vXvGswrIX0-mSn.kgdu_ddRXND5NObV)
 
 ![Terminal Output For Testing](./FinalProject_TestTerminalOutput.jpg)
 
