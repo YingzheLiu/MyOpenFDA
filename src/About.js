@@ -103,12 +103,12 @@ export default function About() {
         </tbody>
       </table>
       <p>
-        <strong>ROR: (a/c)/(b/d)</strong> If ROR > 1, it's possible that the
+        <strong>ROR: (a/c)/(b/d)</strong> If ROR {">"} 1, it's possible that the
         side effect is likely to happen with the drug
       </p>
       <p>
-        <strong>PRR: (a/(a+b))/(c/(c+d))</strong> If PRR > 2, it's possible that
-        the side effect is likely to happen with the drug
+        <strong>PRR: (a/(a+b))/(c/(c+d))</strong> If PRR {">"} 2, it's possible
+        that the side effect is likely to happen with the drug
       </p>
       <p data-testid="thank-you">
         The app is still developing and please feel free to leave comments down

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 // import * as yup from "yup";
 // import { Formik, Field, ErrorMessage } from "formik";
 
@@ -16,16 +17,18 @@ export default function CommentForm({ createComment }) {
     setText(event.target.value);
   }
   function handleSubmit(event) {
+    console.log("submit!");
     const form = event.currentTarget;
     event.preventDefault();
     //Before we submit, we should validate anything
     if (form.checkValidity() === false) {
+      console.log(form);
       event.stopPropagation();
     } else {
-      setValidated(true);
       var currDateTime = moment().format("DD/MM/YYYY HH:mm:ss");
       createComment(author, text, currDateTime);
     }
+    setValidated(true);
   }
 
   return (
@@ -50,27 +53,24 @@ export default function CommentForm({ createComment }) {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
-            <Form.Label htmlFor="adverseEvent">Comment</Form.Label>
+            <Form.Label htmlFor="text">Comment</Form.Label>
             <Form.Control
-              type="textarea"
+              as="textarea"
               value={text}
               onChange={handleTextChange}
               className="form-control"
               id="text"
               data-testid="text"
+              placeholder="Comment"
               required
             />
             <Form.Control.Feedback type="invalid">
               Please enter your comment.
             </Form.Control.Feedback>
           </Form.Group>
-          <button
-            className="btn btn-primary"
-            type="submit"
-            data-testid="post-button"
-          >
+          <Button variant="primary" type="submit" data-testid="post-button">
             Post
-          </button>
+          </Button>
         </Form>
       </div>
     </>

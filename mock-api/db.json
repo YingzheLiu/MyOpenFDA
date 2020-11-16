@@ -25,16 +25,16 @@
       "id": 1
     },
     {
+      "id": 2,
       "drugName": "remicade",
       "adverseEvent": "pain",
       "numOfDrugReport": 117505,
       "numOfAdverseEventReport": 336210,
       "numOfDrugAndAEReport": 5165,
       "numOfTotalReport": 12254197,
-      "dateTime": "15/11/2020 11:41:31",
+      "dateTime": "15/11/2020 19:27:39",
       "startDate": "19870101",
-      "endDate": "20201115",
-      "id": 2
+      "endDate": "20201115"
     }
   ],
   "Comments": [
@@ -51,10 +51,22 @@
       "dateTime": "15/11/2020 01:01:45"
     },
     {
-      "author": "test1",
-      "text": "Add a comment",
-      "dateTime": "15/11/2020 14:51:57",
+      "author": "test",
+      "text": "ere",
+      "dateTime": "15/11/2020 19:17:29",
       "id": 2
+    },
+    {
+      "author": "test",
+      "text": "yt",
+      "dateTime": "15/11/2020 19:18:57",
+      "id": 3
+    },
+    {
+      "author": "1test",
+      "text": "ere",
+      "dateTime": "15/11/2020 19:27:19",
+      "id": 4
     }
   ]
 }

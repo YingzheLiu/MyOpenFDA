@@ -207,9 +207,7 @@ export default function SearchForm() {
             required
           />
           <Form.Control.Feedback type="invalid">
-            {AEError === "rejected"
-              ? "Adverse event is invalid"
-              : "Please provide a adverse event."}
+            Please provide a adverse event
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
