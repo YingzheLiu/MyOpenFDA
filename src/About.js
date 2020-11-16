@@ -70,7 +70,7 @@ export default function About() {
       </p>
       <table className="table table-hover">
         <thead>
-          <tr>
+          <tr className="table-secondary">
             <th scope="col"></th>
             <th scope="col" data-testid="drugName">
               Drug of Interest

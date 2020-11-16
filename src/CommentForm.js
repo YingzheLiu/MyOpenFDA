@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import moment from "moment";
 import Form from "react-bootstrap/Form";
+// import * as yup from "yup";
+// import { Formik, Field, ErrorMessage } from "formik";
 
 export default function CommentForm({ createComment }) {
   const [author, setAuthor] = useState("");
@@ -16,6 +18,7 @@ export default function CommentForm({ createComment }) {
   function handleSubmit(event) {
     const form = event.currentTarget;
     event.preventDefault();
+    //Before we submit, we should validate anything
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
@@ -24,10 +27,12 @@ export default function CommentForm({ createComment }) {
       createComment(author, text, currDateTime);
     }
   }
+
   return (
     <>
       <div className="mt-3 mb-3">
         <h4>Add Comment</h4>
+
         <Form noValidate onSubmit={handleSubmit} validated={validated}>
           <Form.Group>
             <Form.Label htmlFor="author">Author</Form.Label>
