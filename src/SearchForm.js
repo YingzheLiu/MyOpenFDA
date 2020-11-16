@@ -256,12 +256,16 @@ export default function SearchForm() {
       {!isLoading && (
         <>
           <hr></hr>
-          <h6>Number of Drug Reports: {numOfDrugReport}</h6>
-          <h6>Number of Adverse Event Reports: {numOfAdverseEventReport}</h6>
+          <h6>Number of Drug Reports: {numOfDrugReport.toLocaleString()}</h6>
           <h6>
-            Number of Drug with Adverse Event Reports: {numOfDrugAndAEReport}
+            Number of Adverse Event Reports:{" "}
+            {numOfAdverseEventReport.toLocaleString()}
           </h6>
-          <h6>Number of Total Reports: {numOfTotalReport}</h6>
+          <h6>
+            Number of Drug with Adverse Event Reports:{" "}
+            {numOfDrugAndAEReport.toLocaleString()}
+          </h6>
+          <h6>Number of Total Reports: {numOfTotalReport.toLocaleString()}</h6>
           <hr></hr>
           <table className="table table-hover">
             <thead>
