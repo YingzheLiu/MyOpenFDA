@@ -285,7 +285,7 @@ export default function SearchForm() {
                     numOfAdverseEventReport - numOfDrugAndAEReport
                   ).toLocaleString()}
                 </td>
-                <td>{numOfAdverseEventReport}</td>
+                <td>{numOfAdverseEventReport.toLocaleString()}</td>
               </tr>
               <tr>
                 <th scope="row">Other events</th>
