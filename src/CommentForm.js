@@ -61,7 +61,6 @@ export default function CommentForm({ createComment }) {
               className="form-control"
               id="text"
               data-testid="text"
-              placeholder="Comment"
               required
             />
             <Form.Control.Feedback type="invalid">
