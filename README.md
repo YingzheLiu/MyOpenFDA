@@ -6,7 +6,7 @@
 ### [Zoom Link (just in case)](https://usc.zoom.us/rec/share/RBWEvMgWQFKUKaL3uRDKk5xzFiYKid3wcefzYCjMavztkOGKb-vXvGswrIX0-mSn.kgdu_ddRXND5NObV)
 
 ![Terminal Output For Testing](./FinalProject_TestTerminalOutput.jpg)
-
+<br />
 ### Application Requirements
 - Client-side routing with React Router
   - At least 4 routes. (`/`,`/about`,`/favorites`,`/drug-adverseEvent`)
